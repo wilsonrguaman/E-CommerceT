@@ -1,0 +1,35 @@
+package com.shopme.admin.product;
+
+import org.apache.poi.ss.formula.functions.Replace;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.AutoConfiguration;
+
+import com.shopme.common.entity.Brand;
+import com.shopme.common.entity.Category;
+import com.shopme.common.entity.Product;
+
+import jakarta.persistence.Entity;
+
+@DataJpaTest
+@AutoConfigurationTestDatabase(replace = Replace.NONE)
+@Rollback(false)
+public class ProductRepositoryTests {
+	
+	@Autowired
+	private ProductRepository repo;
+	
+	@Autowired
+	private TestEntityManager entityManager;
+	
+	@Test
+	public void testCreateProduct() {
+		Object entity;
+		Brand brand = entityManager.find(Brand.class, entity, 10);
+		
+		Category category = entityManager.find(Category.class, 15);
+		
+		Product product = new Product();
+		product.setName("Samsung Galaxy A31");
+		product.setShortDescription("A good smartphone from Samsung");
+	}
+}
